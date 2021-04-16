@@ -19,7 +19,8 @@ void printAllOptions()
     cout << "5. Delete the first element of the list" << endl;
     cout << "6. Delete the last element of the list" << endl;
     cout << "7. Delete an element from the specified position" << endl;
-    cout << "8. Exit" << endl;
+    cout << "8. Reverse the list" << endl;
+    cout << "9. Exit" << endl;
     cout << "______________________________________________________________________" << endl
          << endl;
 }
@@ -173,13 +174,27 @@ void deleteElementAtPos(Node **head, int pos)
     }
 }
 
+void reverseLinkedList(Node **head)
+{
+    Node *current = (*head);
+    Node *prev = NULL, *next = NULL;
+    while (current != NULL)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    (*head) = prev;
+}
+
 int main()
 {
     Node *head = NULL;
-    char option = '0';
+    char option;
     int data;
     int pos;
-    while (option != 8)
+    while (true)
     {
         printAllOptions();
         cout << "option: ";
@@ -232,6 +247,14 @@ int main()
             }
             deleteElementAtPos(&head, pos);
             break;
+
+        case '8':
+            reverseLinkedList(&head);
+            cout << "Linked list reversed" << endl;
+            break;
+
+        case '9':
+            return 0;
 
         default:
             cout << "Wrong input" << endl;
